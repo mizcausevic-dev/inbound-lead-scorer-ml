@@ -1,0 +1,13 @@
+priority_bands:
+  priority_a:
+    min_score: 85
+    route_to: enterprise_ae
+    sla_minutes: 5
+  priority_b:
+    min_score: 60
+    route_to: sdr_queue
+    sla_minutes: 30
+  hold:
+    min_score: 0
+    route_to: enrichment_or_nurture
+    sla_minutes: null
