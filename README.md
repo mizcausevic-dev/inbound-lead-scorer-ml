@@ -1,6 +1,9 @@
-# inbound-lead-scorer-ml
+# Inbound Lead Scorer ML
 
-Revenue-priority scoring control plane for inbound leads: firmographic fit, intent behavior, attribution quality, buying-committee depth, and routing-safe score explanations.
+Board-ready Kinetic Gain surface for scoring inbound leads using fit, behavior, attribution, and pipeline-priority signals.
+
+- Live: [http://leads.kineticgain.com/](http://leads.kineticgain.com/)
+- Repo: [https://github.com/mizcausevic-dev/inbound-lead-scorer-ml](https://github.com/mizcausevic-dev/inbound-lead-scorer-ml)
 
 ## What it shows
 
@@ -60,6 +63,7 @@ Then open:
 
 ```powershell
 npm run verify
+npm run prerender
 npm run render:assets
 ```
 
