@@ -12,6 +12,14 @@ Board-ready Kinetic Gain surface for scoring inbound leads using fit, behavior, 
 - concrete model artifacts for feature weights, thresholds, and training context
 - operator verification for score-based routing trust
 
+## What this product does
+
+`inbound-lead-scorer-ml` turns raw inbound demand into an explainable routing queue. It shows which accounts deserve immediate sales motion, which need enrichment, and which should stay in nurture because the signal quality is not trustworthy yet.
+
+A SaaS go-to-market analyst can use it to compare lead source quality, intent depth, ICP fit, buying-committee breadth, and handoff speed without arguing from disconnected CRM fields or campaign anecdotes. A SaaS value architect can use it to show where money leaks: bad-fit AE handoffs, slow response to high-conviction accounts, unclear attribution, and channels that create activity without pipeline.
+
+Technically, the repo exposes feature weights, threshold bands, sample training rows, JSON endpoints, prerendered pages, and verification checks. The common Kinetic Gain pattern is a board-readable operating surface: scored risks, named owners, evidence artifacts, remediation actions, and public proof that the system can be reviewed.
+
 ## Screenshots
 
 ### Overview

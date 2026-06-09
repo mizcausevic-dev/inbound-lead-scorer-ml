@@ -113,6 +113,32 @@ function pageShell(title: string, activeRoute: string, body: string) {
       box-shadow: 0 18px 36px rgba(37, 99, 235, 0.3);
     }
     .section-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+    .depth-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      margin: 24px 0;
+    }
+    .depth-card {
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(180deg, rgba(20, 33, 58, 0.78), rgba(15, 23, 42, 0.72)),
+        rgba(15, 23, 42, 0.82);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 18px 42px rgba(0,0,0,0.18);
+    }
+    .depth-card h3 {
+      margin: 10px 0 10px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+    .depth-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
     .card {
       background: rgba(15, 23, 42, 0.88);
       border: 1px solid var(--border);
@@ -178,12 +204,14 @@ function pageShell(title: string, activeRoute: string, body: string) {
     code { color: #9cc6ff; font-family: var(--mono); }
     @media (max-width: 1100px) {
       .hero, .docs-note { grid-template-columns: 1fr; }
+      .depth-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .metric { grid-column: span 6; }
       .split-left, .split-right { grid-column: 1 / -1; }
     }
     @media (max-width: 720px) {
       .wrap { width: min(100% - 24px, 100%); }
       .hero, .card { padding: 22px; }
+      .depth-grid { grid-template-columns: 1fr; }
       .metric { grid-column: 1 / -1; }
       .tabs { gap: 12px; }
       .tab { width: 100%; justify-content: center; }
@@ -220,6 +248,48 @@ function statusClass(status: string) {
   return "critical";
 }
 
+function renderProductDepth() {
+  const cards = [
+    {
+      label: "Product depth",
+      title: "What this product does",
+      body: "Turns raw inbound demand into an explainable routing queue: which accounts deserve immediate sales motion, which need enrichment, and which should stay in nurture because the signal quality is not trustworthy yet."
+    },
+    {
+      label: "GTM analyst lens",
+      title: "Where revenue teams use it",
+      body: "A SaaS go-to-market analyst can compare lead source quality, intent depth, ICP fit, buying-committee breadth, and handoff speed without arguing from disconnected CRM fields or campaign anecdotes."
+    },
+    {
+      label: "Value architecture",
+      title: "Where the money leaks",
+      body: "The value case is avoided sales waste: fewer bad-fit AE handoffs, faster treatment for high-conviction accounts, cleaner attribution decisions, and clearer proof when a channel is producing pipeline versus noise."
+    },
+    {
+      label: "Technical proof",
+      title: "What is inspectable",
+      body: "Feature weights, threshold bands, sample training rows, JSON endpoints, prerendered pages, and verification checks are exposed so technical reviewers can inspect how scoring decisions become routing posture."
+    },
+    {
+      label: "Portfolio pattern",
+      title: "What these repos share",
+      body: "The common layer is not a demo page. It is a board-readable operating surface: scored risks, named owners, evidence artifacts, remediation actions, and public proof that the system can be reviewed."
+    }
+  ];
+
+  return `<section class="depth-grid" aria-label="Product depth">
+    ${cards
+      .map(
+        (card) => `<article class="depth-card">
+          <div class="mini">${card.label}</div>
+          <h3>${card.title}</h3>
+          <p>${card.body}</p>
+        </article>`
+      )
+      .join("")}
+  </section>`;
+}
+
 export function renderOverview() {
   const dashboard = summary();
   const samples = artifacts().slice(0, 2);
@@ -239,7 +309,11 @@ export function renderOverview() {
           <h2>"${dashboard.recommendation}"</h2>
           <p>Best use case: inbound funnels where speed-to-lead matters, but routing bad-fit or dirty-data leads too quickly creates real sales waste.</p>
         </article>
+      </div>
 
+      ${renderProductDepth()}
+
+      <div class="section-grid">
         <article class="card split-left">
           <div class="panel-label">Scoring Surface</div>
           <h2 class="section-title">Make lead priority explainable enough to trust.</h2>
@@ -414,6 +488,7 @@ export function renderDocs() {
           <div class="panel-label">System Artifact / Principal Technical Spec</div>
           <h2 class="section-title" style="font-size:48px; line-height:1.06;">Inbound Lead Scoring Architecture</h2>
           <p class="section-copy">How to route inbound pipeline using fit, behavior, and attribution signals without hiding the scoring logic from operators.</p>
+          ${renderProductDepth()}
           <div class="spec-box">
             <strong>Primary purpose</strong>
             <p>The <code>inbound-lead-scorer-ml</code> repo models the ranking layer that sits between captured demand and sales routing. It makes feature weights, thresholds, and lead explanations visible enough for RevOps ownership.</p>
